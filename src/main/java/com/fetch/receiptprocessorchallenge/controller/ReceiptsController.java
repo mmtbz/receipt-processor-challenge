@@ -50,12 +50,12 @@ public class ReceiptsController {
      */
     private void validateGetReceiptPointRequest(String id) {
         if (id == null) {
-            throw new RuntimeException("id should be present");
+            throw new RuntimeException("Id should be present.");
         }
         try {
             UUID.fromString(id);
         } catch (IllegalArgumentException e) {
-            throw new RuntimeException("the provided id is not a valid uuid.");
+            throw new RuntimeException("The provided id is not a valid uuid.");
         }
     }
 
@@ -87,11 +87,11 @@ public class ReceiptsController {
      */
     private void validateProcessReceiptRequest(ProcessReceiptRequest request) {
         if (request.getRetailer() == null || request.getRetailer().isEmpty()) {
-            throw new IllegalArgumentException("Retailer name is required");
+            throw new IllegalArgumentException("Retailer name is required.");
         }
 
         if (request.getPurchaseDate() == null) {
-            throw new IllegalArgumentException("Purchase date is required");
+            throw new IllegalArgumentException("Purchase date is required.");
         }
         try {
             LocalDate.parse(request.getPurchaseDate().toString(), DATE_FORMATTER);
@@ -100,7 +100,7 @@ public class ReceiptsController {
         }
 
         if (request.getPurchaseTime() == null) {
-            throw new IllegalArgumentException("Purchase time is required");
+            throw new IllegalArgumentException("Purchase time is required.");
         }
         try {
             LocalTime.parse(request.getPurchaseTime().toString(), TIME_FORMATTER);
@@ -109,27 +109,27 @@ public class ReceiptsController {
         }
 
         if (request.getItems() == null || request.getItems().isEmpty()) {
-            throw new IllegalArgumentException("At least one item is required");
+            throw new IllegalArgumentException("At least one item is required.");
         }
 
         double calculatedTotal = 0.0;
 
         for (Item item : request.getItems()) {
             if (item.getShortDescription() == null || item.getShortDescription().isEmpty()) {
-                throw new IllegalArgumentException("Item description is required");
+                throw new IllegalArgumentException("Item description is required.");
             }
             if (item.getPrice() == null || item.getPrice() < 0) {
-                throw new IllegalArgumentException("Item price must be greater than 0");
+                throw new IllegalArgumentException("Item price must be greater than 0.");
             }
             calculatedTotal += item.getPrice();
         }
 
         if (request.getTotal() == null || request.getTotal() < 0) {
-            throw new IllegalArgumentException("Total amount must be greater than 0");
+            throw new IllegalArgumentException("Total amount must be greater than 0.");
         }
 
         if (Math.abs(calculatedTotal - request.getTotal()) != 0.00) {
-            throw new IllegalArgumentException("Total amount does not match the sum of item prices");
+            throw new IllegalArgumentException("Total amount does not match the sum of item prices.");
         }
     }
 }
