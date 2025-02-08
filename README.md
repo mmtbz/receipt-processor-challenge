@@ -36,6 +36,10 @@ docker build -t receipt-processor-challenge .
 docker run -p 8080:8080 receipt-processor-challenge
 ```
 
+### 6. Access the API
+Once the container is running, the API will be accessible at:
+http://localhost:8080
+
 ## Running Unit Tests
 
 Unit tests are located inside the `src/test/` folder.
@@ -49,7 +53,7 @@ To run the tests, execute the following command:
 
 ### 1. Process a Receipt
 
-- Endpoint: POST /receipts/process
+- Endpoint: POST `/receipts/process`
 - Description: Processes a receipt and returns a unique receipt ID.
 - Request Body:
 ```json
@@ -79,7 +83,7 @@ To run the tests, execute the following command:
 }
 
 ```
-- cURL Request:
+- Example cURL Request:
 ```shell
 curl --location 'http://localhost:8080/receipts/process' \
 --header 'Content-Type: application/json' \
@@ -117,11 +121,11 @@ curl --location 'http://localhost:8080/receipts/process' \
 
 ### 2. Retrieve Points for a Receipt
 
-- Endpoint: GET /receipts/{id}/points
+- Endpoint: GET `/receipts/{id}/points`
 - Description: Retrieves the points earned for a specific receipt.
 - Path Parameter:
-   id (UUID) – The unique receipt ID returned from `/receipts/process`
-- cURL Request:
+   `id` (UUID) – The unique receipt ID returned from `/receipts/process`
+- Example cURL Request:
 ```shell
 curl --location 'http://localhost:8080/receipts/cc916c6c-3836-491e-b09d-c3d29fd3fc10/points'
 ```
