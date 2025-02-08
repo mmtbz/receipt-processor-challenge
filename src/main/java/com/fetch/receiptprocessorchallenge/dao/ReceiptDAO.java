@@ -6,9 +6,10 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 
 /**
- * Repository class to deal with Receipt CRUD operations
- * Uses a hashMap as an in-memory db.
- * */
+ * Repository class for managing Receipt CRUD operations.
+ * This implementation uses a HashMap as an in-memory database
+ * to store and retrieve receipt data efficiently.
+ */
 @Repository
 public class ReceiptDAO {
     private final Map<String, Receipt> receipts = new HashMap<>();

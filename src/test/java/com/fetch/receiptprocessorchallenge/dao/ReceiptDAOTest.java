@@ -11,7 +11,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Unit test class for ReceiptDAO.class
+ * */
 class ReceiptDAOTest {
 
     private ReceiptDAO receiptDAO;

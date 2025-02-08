@@ -20,6 +20,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatNoException;
 import static org.mockito.ArgumentMatchers.any;
 
+/**
+ * Unit test class for ReceiptsController.class
+ * */
 class ReceiptsControllerTest {
     private ReceiptsController receiptsController;
     private ReceiptService receiptService;

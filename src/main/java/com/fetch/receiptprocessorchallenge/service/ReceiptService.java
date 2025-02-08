@@ -14,6 +14,11 @@ import java.time.ZoneOffset;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Service class for handling business logic related to receipts.
+ * This class processes receipt data and calculates reward points
+ * based on predefined rules.
+ */
 @Service
 public class ReceiptService {
     private final ReceiptDAO _receiptDao;
@@ -24,11 +29,14 @@ public class ReceiptService {
     }
 
     /**
-     * Take the receipt request transform it into the Receipt Object and store it to the db
-     * Generate a new UUID for the receipt to mimic DB operation
-     * @param request ProcessReceiptRequest
-     * @return ProcessReceiptResponse response object for the processed receipt
-     * */
+     * Processes the receipt request by transforming it into a `Receipt` object
+     * and storing it in the database.
+     *
+     * A new UUID is generated for the receipt to simulate database behavior.
+     *
+     * @param request The `ProcessReceiptRequest` containing receipt details.
+     * @return `ProcessReceiptResponse` containing the stored receipt's details.
+     */
     public ProcessReceiptResponse processReceipt(ProcessReceiptRequest request){
         Receipt newReceipt = Receipt.builder()
                 .items(request.getItems())
@@ -43,6 +51,13 @@ public class ReceiptService {
                 .id(savedReceipt.getId()).build();
     }
 
+    /**
+     * Calculates the points for a given receipt.
+     *
+     * @param receiptId the ID of the receipt to calculate points for
+     * @return the calculated points for the receipt
+     * @throws RuntimeException if the receipt with the specified ID is not found
+     */
     public ReceiptPointResponse getReceiptPoints(String receiptId){
         Optional<Receipt> receiptOptional = _receiptDao.findById(receiptId);
         if(receiptOptional.isEmpty()) {
@@ -53,9 +68,14 @@ public class ReceiptService {
     }
 
     /**
-     * Helper Method to calculate receipt points
-     * @param receipt receipt to calculate point for
-     * @return int points
+     * Helper method to calculate reward points for a given receipt.
+     *
+     * The calculation is based on predefined rules,
+     * such as retailer name length, total amount, item count,
+     * and purchase date/time conditions.
+     *
+     * @param receipt The receipt for which points are to be calculated.
+     * @return The total points awarded for the receipt.
      */
     private int calculatePoints(Receipt receipt) {
         int points = 0;
@@ -95,9 +115,12 @@ public class ReceiptService {
     }
 
     /**
-     * Helper method to count alphaNumeric character in a string
-     * @param name input sting
-     * @return int count of alphaNumeric characters
+     * Helper method to count the number of alphanumeric characters in a given string.
+     *
+     * Alphanumeric characters include letters (A-Z, a-z) and digits (0-9).
+     *
+     * @param name The input string to evaluate.
+     * @return The count of alphanumeric characters in the string.
      */
     private int countAlphaNumeric(String name){
         int response = 0;

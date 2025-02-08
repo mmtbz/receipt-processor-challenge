@@ -15,6 +15,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.UUID;
 
+/**
+ * Controller class for handling Receipt API endpoints.
+ * Exposes endpoints under the `/receipts` path
+ * for processing and retrieving receipt data.
+ */
 @RestController
 @RequestMapping("/receipts")
 public class ReceiptsController {
@@ -27,10 +32,13 @@ public class ReceiptsController {
         _receiptService = receiptService;
     }
 
+
     /**
-     * Endpoint to calculate the receipt point for the given receipt id
-     * @param id the receipt id, It should be a valid UUID string
-     * @return Receipt point
+     * GET endpoint to calculate and retrieve the reward points
+     * for a given receipt ID.
+     *
+     * @param id The receipt ID, which must be a valid UUID string.
+     * @return The calculated receipt points.
      */
     @GetMapping("/{id}/points")
     public ResponseEntity<ReceiptPointResponse> getReceiptPoints(@PathVariable String id) {
@@ -44,9 +52,14 @@ public class ReceiptsController {
     }
 
     /**
-     * Validate getReceiptPoint request with bellow logic
-     * 1. Check if the id is present
-     * 2. validate that the string id is a valid UUID. I use UUID for the ID of the receipt.
+     * Validates the `getReceiptPoint` request using the following logic:
+     * 1. Ensures the receipt ID is present.
+     * 2. Verifies that the provided ID is a valid UUID format.
+     *
+     * The receipt ID follows the UUID format for uniqueness and consistency.
+     *
+     * @param id The receipt ID to validate.
+     * @throws RuntimeException if the ID is missing or not a valid UUID.
      */
     private void validateGetReceiptPointRequest(String id) {
         if (id == null) {
@@ -60,9 +73,10 @@ public class ReceiptsController {
     }
 
     /**
-     * Endpoint to process the receipt
-     * @param request to be processed
-     * @return receipt
+     * POST endpoint to process and store a receipt in the database.
+     *
+     * @param request The receipt data to be processed and saved.
+     * @return The processed receipt with a unique identifier.
      */
     @PostMapping("/process")
     public ResponseEntity<ProcessReceiptResponse> processReceipt(@RequestBody ProcessReceiptRequest request) {
@@ -76,14 +90,18 @@ public class ReceiptsController {
     }
 
     /**
-     * Validate processReceipt request with bellow logic
-     * 1. validate retailer name
-     * 2. validate purchase date and should be in format yyyy-MM-dd
-     * 3. validate purchase time and should be in format HH:mm
-     * 4. validate items exists and at least one item should be present
-     * 5. validate each item contains description and the price is greater than 0
-     * 6. validate the total amount to be greater than zero
-     * 7. validate the total amount equals the total of all items
+     * Validates the `processReceipt` request based on the following criteria:
+     *
+     * 1. Ensures the retailer name is provided and valid.
+     * 2. Validates the purchase date format (yyyy-MM-dd).
+     * 3. Validates the purchase time format (HH:mm).
+     * 4. Ensures at least one item is present in the receipt.
+     * 5. Validates that each item has a description and a price greater than zero.
+     * 6. Ensures the total amount is greater than zero.
+     * 7. Verifies that the total amount matches the sum of all item prices.
+     *
+     * @param request The receipt object to validate.
+     * @throws RuntimeException if any validation rule is violated.
      */
     private void validateProcessReceiptRequest(ProcessReceiptRequest request) {
         if (request.getRetailer() == null || request.getRetailer().isEmpty()) {
