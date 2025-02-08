@@ -146,7 +146,7 @@ public class ReceiptsController {
             throw new IllegalArgumentException("Total amount must be greater than 0.");
         }
 
-        if (Math.abs(calculatedTotal - request.getTotal()) != 0.00) {
+        if (Math.abs(calculatedTotal - request.getTotal()) > 0.01) { // allow 0.01 error difference
             throw new IllegalArgumentException("Total amount does not match the sum of item prices.");
         }
     }
