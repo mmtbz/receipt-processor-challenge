@@ -16,7 +16,7 @@ import java.time.format.DateTimeParseException;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/receipt")
+@RequestMapping("/receipts")
 public class ReceiptsController {
     private final ReceiptService _receiptService;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");

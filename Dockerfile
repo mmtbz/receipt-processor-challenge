@@ -3,7 +3,7 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY build/libs/receipt-processor-challenge-0.0.1-SNAPSHOT.jar app.jar
+COPY build/libs/receipt-processor-challenge-*.jar app.jar
 
 EXPOSE 8080
 

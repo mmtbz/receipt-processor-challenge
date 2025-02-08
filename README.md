@@ -33,12 +33,32 @@ docker build -t receipt-processor-challenge .
 
 ### 5. Run the Docker Container
 ```shell
-docker run -p 8080:8080 receipt-processor-challenge
+docker run -d -p 8080:8080 --name receipt-processor receipt-processor-challenge
 ```
 
 ### 6. Access the API
 Once the container is running, the API will be accessible at:
 http://localhost:8080
+
+### 7. Stop the Docker Container
+To stop the running container, execute:
+```shell
+docker stop receipt-processor
+
+```
+
+### 8. Remove the Docker Container (Optional)
+If you want to remove the stopped container, run:
+```shell
+docker rm receipt-processor
+```
+
+### 9. Restart the Stopped Container
+If you stopped the container and want to restart it without rebuilding:
+
+```shell
+docker start receipt-processor
+```
 
 ## Running Unit Tests
 
